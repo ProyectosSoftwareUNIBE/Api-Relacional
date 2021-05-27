@@ -3,7 +3,7 @@ package com.rafael.falconi.Api.entities;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "userStore")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -11,7 +11,7 @@ public class User {
 
     private String name, password, phone;
 
-    @Column(unique = true)
+    @Lob
     private String email;
 
     public User(int id, String name, String password, String phone, String email) {
