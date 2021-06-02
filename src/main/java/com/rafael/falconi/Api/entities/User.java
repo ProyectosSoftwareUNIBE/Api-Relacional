@@ -9,10 +9,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String name, password, phone;
-
-    @Lob
-    private String email;
+    private String name, password, phone,email;
 
     public User(int id, String name, String password, String phone, String email) {
         this.id = id;

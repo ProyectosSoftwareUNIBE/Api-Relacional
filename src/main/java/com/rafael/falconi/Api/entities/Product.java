@@ -18,14 +18,18 @@ public class Product {
 
     private double price;
 
+    @Column(length = 20)
+    private String category;
+
     public Product() {
     }
 
-    public Product(int id, String name, String code, double price) {
+    public Product(int id, String name, String code, double price, String category) {
         this.id = id;
         this.name = name;
         this.code = code;
         this.price = price;
+        this.category = category;
     }
 
     @Override
@@ -73,5 +77,13 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
