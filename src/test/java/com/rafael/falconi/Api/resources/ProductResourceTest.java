@@ -32,7 +32,7 @@ public class ProductResourceTest {
     public void getById() {
         String json=restService
                 .restBuilder(new RestBuilder<String>().clazz(String.class))
-                .path(ProductResource.PRODUCT).path(ProductResource.ID).get().build();
+                .path(ProductResource.PRODUCT).path(ProductResource.ID).expand(1).get().build();
         System.out.println(json);
     }
 }

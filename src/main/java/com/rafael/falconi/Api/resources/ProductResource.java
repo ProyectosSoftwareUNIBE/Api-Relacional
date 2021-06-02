@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequestMapping(ProductResource.PRODUCT)
 public class ProductResource {
 
-    public static final String PRODUCT = "product";
+    public static final String PRODUCT = "/product";
     public static final String ID = "/{id}";
     public static final String CATEGORYNAME = "/{category}";
     public static final String CATEGORY = "/category";
