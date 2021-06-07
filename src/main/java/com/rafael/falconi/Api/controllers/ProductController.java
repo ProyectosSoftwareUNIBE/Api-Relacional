@@ -26,7 +26,11 @@ public class ProductController {
         return this.productRepository.findById(id);
     }
 
-    public List<Product> findProductByCategory(String category){
+    public List<Product> findProductByCategory(String category) {
         return this.productRepository.findProductsByCategory(category);
+    }
+
+    public void createProduct(Product product) {
+        this.productRepository.save(product);
     }
 }
