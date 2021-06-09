@@ -33,4 +33,24 @@ public class ProductController {
     public void createProduct(Product product) {
         this.productRepository.save(product);
     }
+
+    public boolean editProductById(int id, Product product) {
+        Optional<Product> productOptional = this.findProductById(id);
+        if (!productOptional.isPresent()) return false;
+        Product productdb = productOptional.get();
+        productdb.setCategory(product.getCategory());
+        productdb.setCode(product.getCode());
+        productdb.setName(product.getName());
+        productdb.setPrice(product.getPrice());
+        productRepository.save(productdb);
+        return true;
+    }
+
+    public boolean deleteProductById(int id) {
+        Optional<Product> productOptional = this.findProductById(id);
+        if (!productOptional.isPresent()) return false;
+        productRepository.deleteById(id);
+        return true;
+    }
+
 }

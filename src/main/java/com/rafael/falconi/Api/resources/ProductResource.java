@@ -2,6 +2,7 @@ package com.rafael.falconi.Api.resources;
 
 import com.rafael.falconi.Api.controllers.ProductController;
 import com.rafael.falconi.Api.entities.Product;
+import com.rafael.falconi.Api.resources.exceptions.EditProductException;
 import com.rafael.falconi.Api.resources.exceptions.ProductCreateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,13 +55,31 @@ public class ProductResource {
 
     @PostMapping
     public ResponseEntity createProduct(@RequestBody Product product) throws ProductCreateException {
-        try{
+        try {
             this.productController.createProduct(product);
-            return new ResponseEntity("\"El producto fue creado\"",HttpStatus.ACCEPTED );
-        }catch (Exception e){
+            return new ResponseEntity("\"El producto fue creado\"", HttpStatus.ACCEPTED);
+        } catch (Exception e) {
             throw new ProductCreateException("los datos enviados no son los correctos");
         }
 
+    }
+
+    @PutMapping(value = ID)
+    public ResponseEntity editProduct(@RequestBody Product product, @PathVariable int id) throws EditProductException {
+        try {
+            if (this.productController.editProductById(id, product))
+                return new ResponseEntity("\"El producto fue edito\"", HttpStatus.ACCEPTED);
+            return new ResponseEntity("\"El producto no  existe\"", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            throw new EditProductException("los datos enviados no son los correctos");
+        }
+    }
+
+    @DeleteMapping(value = ID)
+    public  ResponseEntity deleteProduct(@PathVariable int id){
+        if (this.productController.deleteProductById(id))
+            return new ResponseEntity("\"El producto fue eliminado\"", HttpStatus.ACCEPTED);
+        return new ResponseEntity("\"El producto no  existe\"", HttpStatus.NOT_FOUND);
     }
 
 
