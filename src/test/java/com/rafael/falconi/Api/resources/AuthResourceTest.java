@@ -1,6 +1,7 @@
 package com.rafael.falconi.Api.resources;
 
 import com.rafael.falconi.Api.dtos.UserDto;
+import com.rafael.falconi.Api.entities.User;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,12 +24,25 @@ public class AuthResourceTest {
     private RestService restService;
 
     private UserDto userDto;
+    private User user;
 
     @Before
     public void Before(){
         userDto=new UserDto();
+        user=new User();
         userDto.setEmail("email@gmail.com");
         userDto.setPassword("1235");
+        user.setEmail("email@gmail.com");
+        user.setPassword("1235");
+    }
+
+    @Test
+    public void createUser() {
+        String json=
+                restService.restBuilder(new RestBuilder<String>().clazz(String.class))
+                        .path(AuthResource.AUTH)
+                        .body(this.user).post().build();
+        System.out.println(json);
     }
 
     @Test

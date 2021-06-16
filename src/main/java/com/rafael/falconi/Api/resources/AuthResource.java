@@ -2,6 +2,7 @@ package com.rafael.falconi.Api.resources;
 
 import com.rafael.falconi.Api.controllers.UserController;
 import com.rafael.falconi.Api.dtos.UserDto;
+import com.rafael.falconi.Api.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,17 @@ public class AuthResource {
         this.userController = userController;
     }
 
+    @PostMapping
+    public void createUser(@RequestBody User user) {
+        this.userController.createUser(user);
+    }
+
     @PostMapping(value = LOGIN)
     public ResponseEntity login(@RequestBody UserDto userDto) {
         UserDto response = this.userController.login(userDto);
-        if (response.getEmail()==null) {
+        if (response.getEmail() == null) {
             return new ResponseEntity("\"El usuario no  existe\"", HttpStatus.BAD_REQUEST);
-        } else if (response.getName()==null) {
+        } else if (response.getName() == null) {
             return new ResponseEntity("\"Los datos ingresados son incorrectos\"", HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity(response, HttpStatus.ACCEPTED);

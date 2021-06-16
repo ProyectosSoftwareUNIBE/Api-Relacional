@@ -18,6 +18,10 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    public void createUser(User user) {
+        this.userRepository.save(user);
+    }
+
     public UserDto login(UserDto userDto) {
         Optional<User> userOptional = this.userRepository.findUserByEmail(userDto.getEmail());
         if (userOptional.isPresent()) {

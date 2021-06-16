@@ -13,10 +13,11 @@ public class Item {
 
     private int amount;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Product product;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shoppingCart_id")
     private ShoppingCart shoppingCart;
 
     public Item(int id, int amount, Product product, ShoppingCart shoppingCart) {
