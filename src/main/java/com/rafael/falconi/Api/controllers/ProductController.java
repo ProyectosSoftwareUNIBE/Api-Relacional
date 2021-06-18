@@ -22,7 +22,7 @@ public class ProductController {
         return this.productRepository.findAll();
     }
 
-    public Optional<Product> findProductById(int id) {
+    public Optional<Product> findProductById(String id) {
         return this.productRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class ProductController {
         this.productRepository.save(product);
     }
 
-    public boolean editProductById(int id, Product product) {
+    public boolean editProductById(String id, Product product) {
         Optional<Product> productOptional = this.findProductById(id);
         if (!productOptional.isPresent()) return false;
         Product productdb = productOptional.get();
@@ -46,7 +46,7 @@ public class ProductController {
         return true;
     }
 
-    public boolean deleteProductById(int id) {
+    public boolean deleteProductById(String id) {
         Optional<Product> productOptional = this.findProductById(id);
         if (!productOptional.isPresent()) return false;
         productRepository.deleteById(id);

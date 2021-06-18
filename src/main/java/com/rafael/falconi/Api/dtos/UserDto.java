@@ -4,7 +4,7 @@ import com.rafael.falconi.Api.entities.User;
 
 public class UserDto {
 
-    private int id;
+    private String id;
     private String email,password,name;
 
     public UserDto(String email, String password) {
@@ -38,11 +38,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -38,12 +38,12 @@ public class ProductResource {
     }
 
     @GetMapping(value = ID)
-    public ResponseEntity getProductById(@PathVariable int id) {
+    public ResponseEntity getProductById(@PathVariable String id) {
         Optional<Product> productOptional = this.productController.findProductById(id);
         if (productOptional.isPresent()) {
             return new ResponseEntity(productOptional.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity("\"El producto no  existe\"", HttpStatus.NOT_FOUND);
+            return new ResponseEntity(""+id+"", HttpStatus.NOT_FOUND);
         }
 
     }
@@ -65,7 +65,7 @@ public class ProductResource {
     }
 
     @PutMapping(value = ID)
-    public ResponseEntity editProduct(@RequestBody Product product, @PathVariable int id) throws EditProductException {
+    public ResponseEntity editProduct(@RequestBody Product product, @PathVariable String id) throws EditProductException {
         try {
             if (this.productController.editProductById(id, product))
                 return new ResponseEntity("\"El producto fue edito\"", HttpStatus.ACCEPTED);
@@ -76,7 +76,7 @@ public class ProductResource {
     }
 
     @DeleteMapping(value = ID)
-    public  ResponseEntity deleteProduct(@PathVariable int id){
+    public  ResponseEntity deleteProduct(@PathVariable String id){
         if (this.productController.deleteProductById(id))
             return new ResponseEntity("\"El producto fue eliminado\"", HttpStatus.ACCEPTED);
         return new ResponseEntity("\"El producto no  existe\"", HttpStatus.NOT_FOUND);

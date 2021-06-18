@@ -1,26 +1,31 @@
 package com.rafael.falconi.Api.entities;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
+@Table(name="item")
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
 
     private int amount;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Product product;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "shoppingCart_id")
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "shopping_cart_id")
     private ShoppingCart shoppingCart;
 
-    public Item(int id, int amount, Product product, ShoppingCart shoppingCart) {
+    public Item(String id, int amount, Product product, ShoppingCart shoppingCart) {
         this.id = id;
         this.amount = amount;
         this.product = product;
@@ -46,11 +51,11 @@ public class Item {
         return Objects.hash(id, amount);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

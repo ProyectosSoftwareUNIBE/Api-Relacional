@@ -4,16 +4,21 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
-@Entity(name = "userStore")
+@Entity(name = "user_store")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
 
-    private String name, password, phone,email;
+    private String name, password, phone;
 
-    public User(int id, String name, String password, String phone, String email) {
+    @Column(unique = true)
+    private String email;
+
+    public User(String id, String name, String password, String phone, String email) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -38,11 +43,11 @@ public class User {
         return Objects.hash(id, name, email, phone, password);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

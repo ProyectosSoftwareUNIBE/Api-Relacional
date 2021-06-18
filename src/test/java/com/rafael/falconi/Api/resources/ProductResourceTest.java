@@ -43,7 +43,7 @@ public class ProductResourceTest {
     public void getById() {
         String json = restService
                 .restBuilder(new RestBuilder<String>().clazz(String.class))
-                .path(ProductResource.PRODUCT).path(ProductResource.ID).expand(1).get().build();
+                .path(ProductResource.PRODUCT).path(ProductResource.ID).expand("1c86b6ba-6993-4f1e-ad1d-479917ec1a70").get().build();
         System.out.println(json);
     }
 
@@ -70,11 +70,10 @@ public class ProductResourceTest {
         this.product.setPrice(349.99);
         this.product.setCategory("GPU");
         this.product.setCode("hola mundo");
-        this.product.setId(3);
         String json = restService
                 .restBuilder(new RestBuilder<String>().clazz(String.class))
                 .path(ProductResource.PRODUCT).path(ProductResource.ID)
-                .expand(3).body(product).put().build();
+                .expand("1c86b6ba-6993-4f1e-ad1d-479917ec1a70").body(product).put().build();
         System.out.println(json);
     }
 

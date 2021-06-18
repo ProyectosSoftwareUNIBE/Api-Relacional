@@ -34,6 +34,8 @@ public class AuthResourceTest {
         userDto.setPassword("1235");
         user.setEmail("email@gmail.com");
         user.setPassword("1235");
+        user.setName("Rafael");
+        user.setPhone("123124");
     }
 
     @Test

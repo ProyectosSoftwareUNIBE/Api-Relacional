@@ -1,14 +1,19 @@
 package com.rafael.falconi.Api.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity()
+@Table(name="product")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
 
     @Column(length = 20)
     private String name;
@@ -24,7 +29,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name, String code, double price, String category) {
+    public Product(String id, String name, String code, double price, String category) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -47,11 +52,11 @@ public class Product {
         return Objects.hash(id, name, code);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
