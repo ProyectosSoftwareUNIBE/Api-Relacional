@@ -38,12 +38,12 @@ public class ProductResource {
     }
 
     @GetMapping(value = ID)
-    public ResponseEntity getProductById(@PathVariable String id) {
+    public ResponseEntity<Object> getProductById(@PathVariable String id) {
         Optional<Product> productOptional = this.productController.findProductById(id);
         if (productOptional.isPresent()) {
-            return new ResponseEntity(productOptional.get(), HttpStatus.OK);
+            return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity(""+id+"", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("\"El producto no  existe\"", HttpStatus.NOT_FOUND);
         }
 
     }
@@ -54,10 +54,10 @@ public class ProductResource {
     }
 
     @PostMapping
-    public ResponseEntity createProduct(@RequestBody Product product) throws ProductCreateException {
+    public ResponseEntity<String> createProduct(@RequestBody Product product) throws ProductCreateException {
         try {
             this.productController.createProduct(product);
-            return new ResponseEntity("\"El producto fue creado\"", HttpStatus.ACCEPTED);
+            return new ResponseEntity<>("\"El producto fue creado\"", HttpStatus.ACCEPTED);
         } catch (Exception e) {
             throw new ProductCreateException("los datos enviados no son los correctos");
         }
@@ -65,21 +65,21 @@ public class ProductResource {
     }
 
     @PutMapping(value = ID)
-    public ResponseEntity editProduct(@RequestBody Product product, @PathVariable String id) throws EditProductException {
+    public ResponseEntity<String> editProduct(@RequestBody Product product, @PathVariable String id) throws EditProductException {
         try {
             if (this.productController.editProductById(id, product))
-                return new ResponseEntity("\"El producto fue edito\"", HttpStatus.ACCEPTED);
-            return new ResponseEntity("\"El producto no  existe\"", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("\"El producto fue edito\"", HttpStatus.ACCEPTED);
+            return new ResponseEntity<>("\"El producto no  existe\"", HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             throw new EditProductException("los datos enviados no son los correctos");
         }
     }
 
     @DeleteMapping(value = ID)
-    public  ResponseEntity deleteProduct(@PathVariable String id){
+    public ResponseEntity<String> deleteProduct(@PathVariable String id){
         if (this.productController.deleteProductById(id))
-            return new ResponseEntity("\"El producto fue eliminado\"", HttpStatus.ACCEPTED);
-        return new ResponseEntity("\"El producto no  existe\"", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("\"El producto fue eliminado\"", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("\"El producto no  existe\"", HttpStatus.NOT_FOUND);
     }
 
 

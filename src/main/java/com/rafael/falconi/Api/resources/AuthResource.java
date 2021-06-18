@@ -31,14 +31,14 @@ public class AuthResource {
     }
 
     @PostMapping(value = LOGIN)
-    public ResponseEntity login(@RequestBody UserDto userDto) {
+    public ResponseEntity<Object> login(@RequestBody UserDto userDto) {
         UserDto response = this.userController.login(userDto);
         if (response.getEmail() == null) {
-            return new ResponseEntity("\"El usuario no  existe\"", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("\"El usuario no  existe\"", HttpStatus.BAD_REQUEST);
         } else if (response.getName() == null) {
-            return new ResponseEntity("\"Los datos ingresados son incorrectos\"", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("\"Los datos ingresados son incorrectos\"", HttpStatus.BAD_REQUEST);
         } else {
-            return new ResponseEntity(response, HttpStatus.ACCEPTED);
+            return new ResponseEntity<Object>(response, HttpStatus.ACCEPTED);
         }
 
     }
