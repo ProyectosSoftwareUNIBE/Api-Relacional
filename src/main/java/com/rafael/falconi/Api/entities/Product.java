@@ -21,6 +21,8 @@ public class Product {
     @Column(length = 10)
     private String code;
 
+    private String image;
+
     private double price;
 
     @Column(length = 20)
@@ -29,10 +31,11 @@ public class Product {
     public Product() {
     }
 
-    public Product(String id, String name, String code, double price, String category) {
+    public Product(String id, String name, String code, String image, double price, String category) {
         this.id = id;
         this.name = name;
         this.code = code;
+        this.image = image;
         this.price = price;
         this.category = category;
     }
@@ -90,5 +93,13 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

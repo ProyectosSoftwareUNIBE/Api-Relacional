@@ -27,7 +27,7 @@ public class AuthResourceTest {
         user=new User();
         userDto.setEmail("email@gmail.com");
         userDto.setPassword("1235");
-        user.setEmail("email@gmail.com");
+        user.setEmail("test@gmail.com");
         user.setPassword("1235");
         user.setName("Rafael");
         user.setPhone("123124");

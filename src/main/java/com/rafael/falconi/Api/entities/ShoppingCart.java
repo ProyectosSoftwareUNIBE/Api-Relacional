@@ -3,6 +3,7 @@ package com.rafael.falconi.Api.entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -12,20 +13,19 @@ import java.util.UUID;
 @Table(name = "shopping_cart")
 public class ShoppingCart {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(mappedBy = "shoppingCart")
+    @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY,orphanRemoval = true)
     private List<Item> items;
 
     public ShoppingCart() {
     }
 
-    public ShoppingCart(String id, User user, List<Item> items) {
+    public ShoppingCart(int id, User user, List<Item> items) {
         this.id = id;
         this.user = user;
         this.items = items;
@@ -44,11 +44,11 @@ public class ShoppingCart {
         return Objects.hash(id, user, items);
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -66,5 +66,18 @@ public class ShoppingCart {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public void addItem(Item item){
+        if(item==null){
+            return;
+        }else{
+            if(items==null){
+                items=new ArrayList<Item>();
+            }else {
+                items.add(item);
+                item.setShoppingCart(this);
+            }
+        }
     }
 }
